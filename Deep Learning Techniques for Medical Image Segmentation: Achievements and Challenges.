@@ -1,5 +1,28 @@
 Deep Learning Techniques for Medical Image Segmentation: Achievements and Challenges.
 
+Segmentation
+Identifying the pixels of organs or lesion from background medical images
+
+Traditional
+Edge detection filters, thresholding, and mathematical methods
+Machine Learning 
+Extract hand-crafted features
+histogram of oriented gradients (HOG)
+http://blog.naver.com/PostView.nhn?blogId=tommybee&logNo=221173056260&parentCategoryNo=&categoryNo=57&viewDate=&isShowPopularPosts=true&from=search
+oriented rotated brief (ORB)
+https://m.blog.naver.com/PostView.nhn?blogId=ghd3079&logNo=221496302601&proxyReferer=https:%2F%2Fwww.google.co.kr%2F
+local binary patterns (LBPs)
+https://bskyvision.com/280
+scale-invariant feature transform (SIFT) 
+https://bskyvision.com/21
+speeded-up robust features (SURF)
+https://vision0814.tistory.com/172
+These are complex …
+Sol: Deep Learning
+
+
+
+
 Convolutional Neural Networks (CNNs)
 2D CNN
 2.5D CNN
@@ -14,6 +37,19 @@ Multi-Stream FCN
 V-Net
 Convolutional Residual Networks (CRNs)
 Recurrent Neural Networks (RNNs)
+
+Convolutional Neural Networks (CNNs)
+Input layer: connected to an input image
+
+Convolutional layer: convolve a certain number offilters(kernels) with the input (feature map extract)
+When one filter and many input, elementwise sumto produce on feature map
+Activation map is followed by the activation layers (ex: ReLU)
+
+Pooling layer: reduce the dimensionality ofconvolution’s output
+Output layer: using the final feature map, generate output
+
+The weight of neural connection and the kernelare continuously optimized during back-propagation
+
 
 Convolutional Neural Networks (CNNs)
 2D CNN
