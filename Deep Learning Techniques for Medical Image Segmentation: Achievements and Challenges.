@@ -1,0 +1,110 @@
+Deep Learning Techniques for Medical Image Segmentation: Achievements and Challenges.
+
+Convolutional Neural Networks (CNNs)
+2D CNN
+2.5D CNN
+3D CNN
+Fully Convolutional Network (FCN)
+Cascaded FCN (CFCN)
+Focal FCN
+Multi-Stream FCN
+ U-Net
+2D U-Net
+3D U-Net
+V-Net
+Convolutional Residual Networks (CRNs)
+Recurrent Neural Networks (RNNs)
+
+Convolutional Neural Networks (CNNs)
+2D CNN
+Use 2D slice image and 2D filters with N-channel
+More channel, the better
+
+2.5D CNN
+Extracting three orthogonal 2D patches in the XY, YZ, and XZ planes with 2D kernel
+Richer spatial information of neighboring pixels with less computationalcost than 3D
+But when Z-axis resolution is low, isotropic kernel on anisotropic 3Dimages can be problematic
+Limited to the 2D kernel, cannot capture 3D feature
+
+3D CNN
+Extract powerful volumetric representations, comprehensive spatial information
+Dimensionality issue: a set of 3D kernels sharing weights spatially (?)
+
+# network Training Techniques
+
+Deeply Supervised
+Provide the direct supervision of the hidden layers and propagate it to lower layers, instead of just doing it at the output layer
+
+Weakly Supervised https://blog.lunit.io/2019/04/25/ficklenetweakly-and-semi-supervised-semantic-image-segmentation-using-stochastic-inference/
+Insufficient 
+* quantity of labeled data
+* Subject-matter expertise to label data
+Inexact label
+Use of label data that shows the presence or absence of pattern
+Segmentation map can be approximated to the segmentation map
+Seed Region Growing (SRG)
+FickleNet
+
+
+Transfer Learning
+Capability of a system to recognize and employ the knowledge learned in a previous source domain to a novel task
+Fine-tuning a network pre-trained on general images
+Fine-tuning a network pre-trained on medical images of different task
+Transfer learning has been proven to be better than random initialization
+ Three level of transfer learning
+Full-network adaption:initialize the weight by a pre-trained network and update them all during training
+Partial network adaptioninitialize the weight by a pre-trained network and freeze the weights for first few layers and update the others during training
+Zero adaptioninitialize the weight by a pre-trained network and do not update at all
+Not recommended for medical segmentation
+As biomedical images have different appearance and size
+Network Structure
+Shallower network: full adaption is better
+Deeper network partial adaption will reduce the convergence time and computational load
+Dataset Size
+If target dataset is small and the number of parameter is large
+full adaption can cause overfitting
+partial adaption is recommended
+If larger dataset is large: full adaption can work fine
+
+
+Limited Annotated Data
+Data Augmentation
+Increase the training dataset
+Affine transformation (flip, rotate, mirror, color value)
+학습 자체가 안되면 소용없다.. Data crop/zoom is more effective
+Transfer Learning
+Patch-Wise Training
+Image is broken down into multiple patches (can be overlapping or random patches)
+Random patch has the class imbalance issue and lower accuracy: not good for small ROI
+Weakly Supervised Learning
+Good for insufficient or noisy labeled data
+Weakly supervised + other method can be recommended
+Ex: WMH segmentation and tissue segmentation information to remove false positives
+Effective Negative Set http://blog.naver.com/PostView.nhn?blogId=sogangori&logNo=221073537958
+Enhance the discrimination power of the network on false positive case (Unless overfit)
+Give some images similar with ROI but not an answer
+Ex: similar with WMH but just normal brain tissue
+
+Class Imbalance
+Sample re-weighting
+Higher weight on the foreground patches during training
+Challenges with Training Deep Models
+Overfitting
+When model capture the patterns and regularities in the training set with higher accuracy than unprocessed instances
+Mainly because small training dataset
+Data augmentation, transfer learning, patch extraction
+Training Time
+Too long training time and convergence speed
+convolution with stride that lightens the network
+Batch normalization: centering the pixel value around 0 by subtracting them by the mean image
+Gradient Vanishing
+Final loss cannot be effectively back propagated to shallow layers
+Deeply supervised learning: intermediate hidden layer’s output
+Careful weight initialization improves the gradient vanishing
+Organ Appearance
+Heterogeneous appearance of ROI
+Increase the model depth
+Ambiguous ROI boundary
+Multi-modality can solve this
+Superpixel’s information is helpful https://bskyvision.com/540
+Apply weighted loss function with large weight on the background label
